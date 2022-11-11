@@ -10,8 +10,14 @@ const index = async (req, res, next) => {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log(data);
-      return res.status(201).send(data);
+      console.log(new Date(data[0].DataHora._seconds * 1000).toLocaleString());
+      const formattedData = data.map((x) => {
+        return {
+            id: x.id,
+            date: new Date(x.DataHora._seconds * 1000).toLocaleString()
+        };
+      })
+      return res.status(201).send(formattedData);
     });
   } catch (e) {
     return res.send(e);
@@ -19,7 +25,13 @@ const index = async (req, res, next) => {
 };
 
 const logData = async (req, res, next) => {
-    
+    const data = {
+        DataHora: new Date()
+    }
+
+    const response = await db.collection('logs').doc().set(data);
+
+    return res.send('Enviado com sucesso');
 }
 
 const testeApi = async (req, res, next) => {
@@ -27,4 +39,4 @@ const testeApi = async (req, res, next) => {
 };
 
 //Export dos métodos
-module.exports = { index, testeApi };
+module.exports = { index, testeApi, logData };
