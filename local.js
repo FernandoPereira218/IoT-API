@@ -14,7 +14,14 @@ const origin = {
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors(origin))
+//app.use(cors(origin))
+app.use(
+    cors({
+        credentials: true,
+        origin: true
+    })
+);
+app.options('*', cors());
 app.use(compression())
 app.use(helmet())
 
@@ -22,7 +29,7 @@ app.use(helmet())
 const router = require('./src/routes')
 app.use('/api', router)
 
-app.listen(process.env.PORT_SERVER, () => {
+app.listen(process.env.PORT_SERVER || 3000, () => {
   console.log(`⚡️[server]: Server is running at ${process.env.PORT_SERVER}`)
 });
 
