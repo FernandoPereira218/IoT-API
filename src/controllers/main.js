@@ -18,6 +18,10 @@ const index = async (req, res, next) => {
   }
 };
 
+const logData = async (req, res, next) => {
+    
+}
+
 const testeApi = async (req, res, next) => {
   return res.send("Tudo funcionando");
 };
