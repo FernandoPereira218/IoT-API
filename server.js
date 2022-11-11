@@ -19,8 +19,8 @@ app.use(helmet())
 const router = require('./src/routes')
 app.use('/api', router)
 
-// app.listen(process.env.PORT_SERVER, () => {
-//   console.log(`⚡️[server]: Server is running at ${process.env.PORT_SERVER}`)
-// });
+app.listen(process.env.PORT_SERVER, () => {
+  console.log(`⚡️[server]: Server is running at ${process.env.PORT_SERVER}`)
+});
 
 module.exports = app
