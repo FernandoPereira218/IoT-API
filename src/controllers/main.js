@@ -10,14 +10,21 @@ const index = async (req, res, next) => {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log(new Date(data[0].DataHora._seconds * 1000).toLocaleString());
+      //console.log(new Date(data[0].DataHora._seconds * 1000).toLocaleString());
+      const weekDays = Array(7).fill(0);
       const formattedData = data.map((x) => {
+        var date = new Date(x.DataHora._seconds * 1000);
+        var weekDay = date.getDay();
+        weekDays[weekDay] += 1;
         return {
             id: x.id,
-            date: new Date(x.DataHora._seconds * 1000).toLocaleString()
+            date: date.toLocaleString()
         };
       })
-      return res.status(201).send(formattedData);
+      return res.status(201).send({
+        data: formattedData,
+        amountPerWeekDay: weekDays
+      });
     });
   } catch (e) {
     return res.send(e);
