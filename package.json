@@ -3,7 +3,7 @@
   "author": "Fernando",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "web": "server.js",
   "license": "MIT",
   "scripts": {
     "start": "set NODE_ENV=development& nodemon local.js",
