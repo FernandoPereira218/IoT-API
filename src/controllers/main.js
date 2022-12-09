@@ -1,7 +1,6 @@
 const api = require("../api");
 const { logErro } = require("../utils");
 const { db } = require("../firebase/admin");
-const nodemailer = require('nodemailer');
 
 const index = async (req, res, next) => {
   const collection = db.collection("logs");
@@ -50,35 +49,10 @@ const logData = async (req, res, next) => {
     return res.send('Enviado com sucesso');
 }
 
-const sendEmail = async (req, res, next) => {
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'antiSleepGlasses@gmail.com',
-          pass: 'antiSleepGlasses12'
-        }
-      });
-      
-      var mailOptions = {
-        from: 'antiSleepGlasses@gmail.com',
-        to: 'fernandofmp218@gmail.com',
-        subject: 'Sending Email using Node.js',
-        text: 'That was easy!'
-      };
-      
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          return res.send(error)
-        } else {
-          console.log('Email sent: ' + info.response);
-          return res.send(info.response);
-        }
-      }); 
-}
 
 const testeApi = async (req, res, next) => {
   return res.send("Tudo funcionando");
 };
 
 //Export dos métodos
-module.exports = { index, testeApi, logData, sendEmail };
+module.exports = { index, testeApi, logData };

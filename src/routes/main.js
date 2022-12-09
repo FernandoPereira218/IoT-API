@@ -7,6 +7,5 @@ const mainRouter = express.Router();
 mainRouter.get('/', controller.index);
 mainRouter.get('/teste', controller.testeApi);
 mainRouter.post('/logData', controller.logData);
-mainRouter.post('/sendEmail', controller.sendEmail);
 
 module.exports = mainRouter;
