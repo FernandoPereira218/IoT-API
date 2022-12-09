@@ -29,9 +29,22 @@ const index = async (req, res, next) => {
         };
       });
 
+      var listDates = [];
+      const dataWithCount = data.map((item) => {
+        var date = new Date(item.DataHora._seconds * 1000);
+        var formattedDate = date.toISOString().split('T')[0];
+        const found = listDates.some(el => el.date === formattedDate);
+        if (!found)
+            listDates.push({ date: formattedDate, count: 1});
+        else 
+            listDates.filter((x) => x.date === formattedDate)[0].count += 1;
+      })
+      console.log(listDates);
+
       return res.status(201).send({
         data: formattedData,
-        amountPerWeekDay: weekDays
+        amountPerWeekDay: weekDays,
+        listDates: listDates
       });
     });
   } catch (e) {
